@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartAgency | AI-Powered Web Design</title>
+    <meta name="description"
+        content="Premium AI-powered web design agency. We build websites that convert visitors into customers.">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Outfit:wght@500;700;900&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* 
+         * DESIGN TOKENS (Brandium Style)
+         */
+        :root {
+            --bg-color: #000000;
+            --text-primary: #ffffff;
+            --text-secondary: #888888;
+            --accent-color: #C5FF00;
+            /* Signature Lime */
+            --border-color: rgba(255, 255, 255, 0.1);
+
+            --font-heading: 'Outfit', sans-serif;
+            --font-body: 'Inter', sans-serif;
+
+            --container-width: 1300px;
+        }
+
+        /* 
+         * BASE 
+         */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        ::selection {
+            background: var(--accent-color);
+            color: #000;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-family: var(--font-heading);
+            font-weight: 900;
+            text-transform: uppercase;
+            line-height: 0.95;
+            letter-spacing: -0.02em;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            cursor: pointer;
+        }
+
+        /* 
+         * UTILITIES 
+         */
+        .container {
+            width: 90%;
+            max-width: var(--container-width);
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .lime-text {
+            color: var(--accent-color);
+        }
+
+        /* Button: Minimal & Sharp */
+        .btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 999px;
+            font-family: var(--font-body);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--accent-color);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: -1;
+        }
+
+        .btn:hover {
+            border-color: var(--accent-color);
+            color: #000;
+        }
+
+        .btn:hover::before {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        /* 
+         * NAVIGATION 
+         */
+        nav {
+            padding: 2rem 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            mix-blend-mode: difference;
+        }
+
+        .brand {
+            font-family: var(--font-heading);
+            font-weight: 900;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+        }
+
+        /* 
+         * HERO SECTION 
+         */
+        #hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding-top: 12vh;
+            /* Pushes content down slightly from center */
+        }
+
+        .hero-content {
+            width: 100%;
+            max-width: 1200px;
+            margin-inline: auto;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 2;
+        }
+
+        .hero-title {
+            width: 100%;
+            text-align: center;
+            font-size: 8vw;
+            margin-bottom: 2rem;
+            mix-blend-mode: exclusion;
+            text-wrap: balance;
+        }
+
+        @media (min-width: 1000px) {
+            .hero-title {
+                font-size: 5.5rem;
+            }
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            color: var(--text-secondary);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            100% {
+                transform: translateX(-50%) translateY(0);
+            }
+
+            50% {
+                transform: translateX(-50%) translateY(-10px);
+            }
+        }
+
+        /* 
+         * SECTIONS 
+         */
+        section {
+            padding: 120px 0;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .section-label {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+            display: block;
+            border-left: 2px solid var(--accent-color);
+            padding-left: 1rem;
+        }
+
+        /* 
+         * CARDS (For Services & Testimonials)
+         */
+        .services-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        @media (min-width: 768px) {
+            .services-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .service-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-color);
+            padding: 3rem 2rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .service-card:hover {
+            border-color: var(--accent-color);
+            background: rgba(197, 255, 0, 0.05);
+            /* Slight Lime Tint */
+            transform: translateY(-5px);
+        }
+
+        .card-icon {
+            font-family: var(--font-heading);
+            font-size: 2rem;
+            color: var(--accent-color);
+            margin-bottom: 1.5rem;
+            opacity: 0.8;
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .service-card p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+
+        /* 
+         * PROCESS 
+         */
+        .process-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        @media (min-width: 768px) {
+            .process-steps {
+                flex-direction: row;
+            }
+        }
+
+        .process-step {
+            flex: 1;
+            padding: 2rem;
+            border-top: 1px solid var(--border-color);
+            position: relative;
+        }
+
+        .process-step h3 {
+            font-size: 2rem;
+            margin: 1rem 0;
+        }
+
+        /* 
+         * TESTIMONIALS 
+         */
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        @media (min-width: 768px) {
+            .testimonials-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .testimonial-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-color);
+            padding: 3rem;
+            border-radius: 4px;
+        }
+
+        .stars {
+            color: var(--accent-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .quote {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            font-style: italic;
+        }
+
+        /* 
+         * CTA & FOOTER
+         */
+        .footer-cta {
+            padding: 100px 0;
+            text-align: center;
+        }
+
+        .footer-cta h2 {
+            font-size: 4rem;
+            margin-bottom: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .footer-cta h2 {
+                font-size: 2.5rem;
+            }
+        }
+
+        footer {
+            border-top: 1px solid var(--border-color);
+            padding: 2rem 0;
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        /* 
+         * VIGNETTE 
+         */
+        .vignette {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            background: radial-gradient(circle, transparent 50%, rgba(0, 0, 0, 0.8) 100%);
+            z-index: 50;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="vignette"></div>
+
+    <nav>
+        <div class="container" style="display:flex; justify-content:space-between; align-items:center;">
+            <div class="brand">Smart<span class="lime-text">Agency</span></div>
+            <a href="#cta" class="btn" style="padding: 0.75rem 1.5rem; font-size:0.75rem;">Get Started</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    AI-POWERED WEBSITES THAT
+                    <span class="lime-text">CONVERT VISITORS</span>
+                    INTO CUSTOMERS.
+                </h1>
+                <p
+                    style="max-width: 600px; margin: 0 auto 3rem auto; font-size: 1.25rem; color: var(--text-secondary);">
+                    We build ultra-fast, premium digital experiences designed to scale your high-end local business.
+                </p>
+                <div>
+                    <a href="#cta" class="btn">Book a Free Demo</a>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator">Scroll to Explore</div>
+    </section>
+
+    <!-- Services & Benefits Section -->
+    <section id="services">
+        <div class="container">
+            <span class="section-label">01 // Services & Benefits</span>
+            <div class="services-grid">
+                <!-- Card 1 -->
+                <div class="service-card">
+                    <div class="card-icon">01</div>
+                    <h3>High-End Design</h3>
+                    <p>Premium aesthetics that build instant trust and authority for your brand. Stand out in crowded
+                        markets.</p>
+                </div>
+                <!-- Card 2 -->
+                <div class="service-card">
+                    <div class="card-icon">02</div>
+                    <h3>Speed & Performance</h3>
+                    <p>Optimized for 100/100 Google PageSpeed scores to maximize SEO rankings and user retention.</p>
+                </div>
+                <!-- Card 3 -->
+                <div class="service-card">
+                    <div class="card-icon">03</div>
+                    <h3>Conversion Focused</h3>
+                    <p>Psychologically engineered layouts that turn passive visitors into paying clients effectively.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section id="process">
+        <div class="container">
+            <span class="section-label">02 // How It Works</span>
+            <div class="process-steps">
+                <div class="process-step">
+                    <h3>01. Strategy</h3>
+                    <p style="color:var(--text-secondary);">We analyze your market and define a winning digital roadmap.
+                    </p>
+                </div>
+                <div class="process-step">
+                    <h3>02. Build</h3>
+                    <p style="color:var(--text-secondary);">AI-assisted development for rapid, high-fidelity deployment.
+                    </p>
+                </div>
+                <div class="process-step">
+                    <h3>03. Launch</h3>
+                    <p style="color:var(--text-secondary);">Go live with confidence and start capturing leads
+                        immediately.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials">
+        <div class="container">
+            <span class="section-label">03 // What They Say</span>
+            <div class="testimonials-grid">
+                <!-- Review 1 -->
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="quote">"The ROI has been incredible. Our new site looks like a million bucks and converts
+                        cold traffic significantly better."</p>
+                    <div class="author">
+                        <h4 style="margin-bottom:0.2rem;">Sarah Jenkins</h4>
+                        <span style="font-size:0.85rem; color:var(--text-secondary);">CEO, Apex Realty</span>
+                    </div>
+                </div>
+                <!-- Review 2 -->
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="quote">"SmartAgency understands luxury. They didn't just build a website; they elevated
+                        our entire brand image."</p>
+                    <div class="author">
+                        <h4 style="margin-bottom:0.2rem;">Marcus Chen</h4>
+                        <span style="font-size:0.85rem; color:var(--text-secondary);">Founder, TechFlow</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA Section -->
+    <section id="cta">
+        <div class="container">
+            <div class="footer-cta">
+                <span class="section-label" style="border:none; margin-bottom:1rem; display:inline-block;">04 // Start
+                    Now</span>
+                <h2>Ready to Scale?<br><span class="lime-text">Book Your Demo.</span></h2>
+                <a href="#" class="btn" style="margin-top: 2rem;">Book a Free Demo</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            &copy; 2024 SmartAgency Inc. All rights reserved.
+        </div>
+    </footer>
+
+    <!-- GSAP Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", (event) => {
+            gsap.registerPlugin(ScrollTrigger);
+
+            // Hero Animation
+            const heroTl = gsap.timeline({ defaults: { ease: "power2.out", duration: 1 } });
+            heroTl.from(".hero-title", { y: 50, opacity: 0, duration: 1.2 })
+                .from(".hero-content p", { y: 20, opacity: 0 }, "-=0.8")
+                .from(".hero-content .btn", { y: 20, opacity: 0 }, "-=0.8");
+
+            // Service Cards
+            gsap.utils.toArray('.service-card').forEach((card, i) => {
+                gsap.from(card, {
+                    scrollTrigger: {
+                        trigger: card,
+                        start: "top 85%",
+                        toggleActions: "play none none reverse"
+                    },
+                    y: 50,
+                    opacity: 0,
+                    duration: 0.6,
+                    delay: i * 0.1
+                });
+            });
+
+            // Process Steps
+            gsap.utils.toArray('.process-step').forEach((step, i) => {
+                gsap.from(step, {
+                    scrollTrigger: {
+                        trigger: step,
+                        start: "top 85%"
+                    },
+                    x: -20,
+                    opacity: 0,
+                    duration: 0.8,
+                    delay: i * 0.2
+                });
+            });
+
+            // Testimonials
+            gsap.from(".testimonials-grid", {
+                scrollTrigger: {
+                    trigger: "#testimonials",
+                    start: "top 80%"
+                },
+                y: 30,
+                opacity: 0,
+                duration: 0.8
+            });
+
+            // Footer CTA
+            gsap.from(".footer-cta h2", {
+                scrollTrigger: {
+                    trigger: "#cta",
+                    start: "top 75%"
+                },
+                scale: 0.9,
+                opacity: 0,
+                duration: 0.8
+            });
+        });
+    </script>
+</body>
+
+</html>
