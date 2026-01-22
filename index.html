@@ -14,6 +14,7 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Oswald:wght@300;400;500;700&display=swap"
         rel="stylesheet">
+    <link rel="stylesheet" href="assets/chatbot.css">
 
     <!-- GSAP -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
@@ -1239,6 +1240,28 @@
             });
         });
     </script>
+    <!-- Chatbot HTML -->
+    <button class="chatbot-toggler">
+        <span class="material-symbols-rounded">💬</span>
+    </button>
+    <div class="chatbot-window">
+        <div class="chat-header">
+            <h3>Elite Assistant</h3>
+            <button class="chat-close-btn">×</button>
+        </div>
+        <ul class="chat-box">
+            <li class="chat-message bot">
+                <div class="bot-icon">✂</div>
+                <div class="message-text">Hi there! 👋<br>How can I help you book your next fresh cut?</div>
+            </li>
+        </ul>
+        <div class="chat-input-area">
+            <textarea placeholder="Type a message..." required></textarea>
+            <button class="send-btn">➤</button>
+        </div>
+    </div>
+
+    <script src="assets/chatbot.js"></script>
 </body>
 
 </html>
